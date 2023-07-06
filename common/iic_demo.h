@@ -11,9 +11,14 @@
 static XStatus I2cInit(int DeviceId);
 XStatus I2cReadA16D8(u8 PortId, u8 BusAddress, u16 Address, u8 *Data);
 XStatus I2cWriteA16D8(u8 PortId, u8 BusAddress, u16 Address, u8 Data);
-static int XIIC_CheckTxFifoOccupancy(XIic *InstancePtr);
 XStatus XIic_IrqService(XIic *InstancePtr);
+static void ClearIisrIrq(XIic *InstancePtr, u32 Mask);
+static void IntrClearEnable(XIic *InstancePtr, u32 Mask);
+static void WriteIrqSetup(XIic *InstancePtr);
+static void Iic_DisableIrq(XIic *InstancePtr, u32 Mask);
 
+static int Iic_Send(XIic *InstancePtr, u8 BusAddress);
+static int Iic_Recv(XIic *InstancePtr, u8 BusAddress, u8 *Data);
 /************************** Variable Definitions *****************************/
 
 /*
